@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        // Prevent third-party browser extensions (e.g. request interceptors) from crashing
+        // when attempting to overwrite a getter-only window.fetch property
+        try {
+          var currentFetch = window.fetch ? window.fetch.bind(window) : undefined;
+          var desc = Object.getOwnPropertyDescriptor(window, 'fetch') ||
+                     Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+          if (!desc || desc.configurable) {
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function () {
+                return currentFetch;
+              },
+              set: function (fn) {
+                currentFetch = fn;
+              }
+            });
+          }
+        } catch (_) {}
+
+        window.addEventListener(
+          'error',
+          function (e) {
+            var filename = (e && e.filename) || '';
+            var message = (e && e.message) || '';
+            if (
+              filename.indexOf('chrome-extension://') === 0 ||
+              message.indexOf('Cannot set property fetch') !== -1
+            ) {
+              e.stopImmediatePropagation();
+              e.preventDefault();
+            }
+          },
+          true
+        );
+      })();
+    </script>
+    <title>Aetheria: Outpost 7 — 2D Sci-Fi Survival Engine</title>
+    <meta name="description" content="2D Sci-Fi Top-Down Survival Mining Roguelite engine with procedural generation, responsive game feel, Web Audio synthesis, and base building." />
+    <meta property="og:title" content="Aetheria: Outpost 7 — 2D Sci-Fi Survival Engine" />
+    <meta property="og:description" content="2D Sci-Fi Top-Down Survival Mining Roguelite engine with procedural generation, responsive game feel, Web Audio synthesis, and base building." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

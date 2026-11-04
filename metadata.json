@@ -1,0 +1,6 @@
+{
+  "name": "Aetheria: Outpost 7",
+  "description": "2D Sci-Fi Top-Down Survival Mining Roguelite engine with procedural generation, responsive game feel, Web Audio synthesis, and base building.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
