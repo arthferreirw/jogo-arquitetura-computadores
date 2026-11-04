@@ -1,6 +1,6 @@
 {
-  "summary": "Plano de remodelação temática completa do jogo para Arquitetura de Computadores (Von Neumann Defender), com estética de Circuito Impresso (PCB Verde/Dourado), recursos de Ciclos de Clock, Cache SRAM e Instruções (Opcodes), inimigos baseados em falhas de hardware/pipeline e árvore de upgrades da CPU.",
-  "updatedAt": "2026-11-04T22:46:59.545845469Z",
+  "summary": "Plano para simplificar os termos técnicos na tela de Fim de Jogo (Derrota/Vitória) e no HUD principal, utilizando linguagem acessível de jogos com os conceitos de Arquitetura de Computadores entre parênteses e exibindo a causa direta da derrota.",
+  "updatedAt": "2026-11-04T23:10:55.593121304Z",
   "requestFeedback": true,
   "userFacing": true
 }

@@ -13,7 +13,7 @@ export class Camera {
   private trauma: number = 0;
   public shakeOffsetX: number = 0;
   public shakeOffsetY: number = 0;
-  private maxShakeOffset: number = 18; // Maximum pixel displacement
+  private maxShakeOffset: number = 6; // Subtle maximum pixel displacement
 
   // World bounds
   public worldWidth: number = 3200;
@@ -32,10 +32,10 @@ export class Camera {
   }
 
   /**
-   * Adds trauma for camera shake (0 to 1)
+   * Adds trauma for camera shake (capped at 0.55 to prevent excessive shaking in swarms)
    */
   public addTrauma(amount: number): void {
-    this.trauma = Math.min(1.0, this.trauma + amount);
+    this.trauma = Math.min(0.55, this.trauma + amount);
   }
 
   /**
@@ -55,10 +55,10 @@ export class Camera {
 
     // Process trauma decay and shake offset
     if (this.trauma > 0) {
-      // Decay trauma linearly over time
-      this.trauma = Math.max(0, this.trauma - 1.4 * dt);
+      // Fast decay so multiple hits don't sustain screen shake
+      this.trauma = Math.max(0, this.trauma - 2.8 * dt);
 
-      // Nonlinear shake intensity (trauma^2) produces punchier feel
+      // Nonlinear shake intensity (trauma^2) produces subtle feedback
       const shakeIntensity = this.trauma * this.trauma;
       const angle = Math.random() * Math.PI * 2;
       const distance = shakeIntensity * this.maxShakeOffset;
@@ -73,10 +73,11 @@ export class Camera {
 
   /**
    * Converts screen (canvas) coordinates to in-game world coordinates
+   * Excludes shakeOffset so camera shake never disturbs player mouse aim.
    */
   public screenToWorld(screenX: number, screenY: number): { x: number; y: number } {
-    const originX = this.x - this.viewportWidth / 2 + this.shakeOffsetX;
-    const originY = this.y - this.viewportHeight / 2 + this.shakeOffsetY;
+    const originX = this.x - this.viewportWidth / 2;
+    const originY = this.y - this.viewportHeight / 2;
     return {
       x: screenX + originX,
       y: screenY + originY,

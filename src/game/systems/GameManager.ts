@@ -42,6 +42,7 @@ export class GameManager {
   public timeSurvived: number = 0;
   public totalMineralsMined: number = 0;
   public totalEnemiesDefeated: number = 0;
+  public gameOverReason: string = '';
 
   // Timing & Hitstop (freeze-frame simulation pause for heavy impact feel)
   private lastTimestamp: number = 0;
@@ -129,6 +130,7 @@ export class GameManager {
     this.timeSurvived = 0;
     this.totalMineralsMined = 0;
     this.totalEnemiesDefeated = 0;
+    this.gameOverReason = '';
     this.hitstopTimer = 0;
   }
 
@@ -227,7 +229,7 @@ export class GameManager {
       if (this.player.triggerDash(moveVector.x, moveVector.y)) {
         audioSynth.playDash();
         this.particles.burst(this.player.x, this.player.y, 12, '#fbbf24', 140, 2);
-        this.camera.addTrauma(0.2);
+        this.camera.addTrauma(0.06);
       }
     }
 
@@ -339,9 +341,9 @@ export class GameManager {
               audioSynth.playExplosion();
               this.particles.burst(res.x, res.y, 28, '#ef4444', 220, 4);
               this.particles.shockwave(res.x, res.y, '#fbbf24', 65);
-              // Hitstop & screen trauma on kill
-              this.hitstopTimer = 0.045; // 45ms impact crunch
-              this.camera.addTrauma(0.35);
+              // Subtle hitstop & screen trauma on kill
+              this.hitstopTimer = 0.02;
+              this.camera.addTrauma(0.12);
 
               // Chance of rare Opcode drop
               if (Math.random() > 0.65) {
@@ -371,10 +373,10 @@ export class GameManager {
         ) {
           if (this.player.takeDamage(p.damage)) {
             audioSynth.playHit();
-            this.camera.addTrauma(0.4);
-            this.hitstopTimer = 0.04;
+            this.camera.addTrauma(0.12);
+            this.hitstopTimer = 0.015;
             this.particles.burst(this.player.x, this.player.y, 14, '#ef4444', 160, 3);
-            this.particles.floatingText(this.player.x, this.player.y, `-${p.damage}V`, '#ef4444');
+            this.particles.floatingText(this.player.x, this.player.y, `-${p.damage} HP`, '#ef4444');
           }
           this.projectiles.splice(i, 1);
           continue;
@@ -409,13 +411,13 @@ export class GameManager {
       ) {
         if (this.player.takeDamage(enemy.contactDamage)) {
           audioSynth.playHit();
-          this.camera.addTrauma(0.45);
-          this.hitstopTimer = 0.05;
+          this.camera.addTrauma(0.14);
+          this.hitstopTimer = 0.015;
           this.particles.burst(this.player.x, this.player.y, 16, '#ef4444', 160, 3);
           this.particles.floatingText(
             this.player.x,
             this.player.y,
-            `-${enemy.contactDamage}V`,
+            `-${enemy.contactDamage} HP`,
             '#ef4444'
           );
         }
@@ -433,9 +435,8 @@ export class GameManager {
         )
       ) {
         const destroyed = this.baseManager.damageCore(enemy.contactDamage * dt * 2.5);
-        this.camera.addTrauma(0.15);
         if (destroyed) {
-          this.triggerGameOver('Unidade de Controle Corrompida');
+          this.triggerGameOver('A Base Central (Unidade de Controle) foi destruída pelos inimigos.');
           return;
         }
       }
@@ -445,8 +446,8 @@ export class GameManager {
     this.baseManager.update(dt, (px, py, pulseRadius) => {
       audioSynth.playCorePulse();
       this.particles.shockwave(px, py, '#fbbf24', pulseRadius);
-      this.particles.floatingText(px, py - 55, 'IRQ HARDWARE RESET!', '#fbbf24');
-      this.camera.addTrauma(0.3);
+      this.particles.floatingText(px, py - 55, 'PULSO DE DEFESA (IRQ)!', '#fbbf24');
+      this.camera.addTrauma(0.15);
 
       // Damage and push back all enemies within IRQ pulse
       for (const enemy of this.enemyManager.enemies) {
@@ -479,7 +480,7 @@ export class GameManager {
       this.particles.floatingText(
         this.player.x,
         this.player.y - 40,
-        `CICLO DE BENCHMARK ${this.enemyManager.wave} VALIDADO!`,
+        `ONDA ${this.enemyManager.wave} CONCLUÍDA!`,
         '#10b981'
       );
 
@@ -501,7 +502,7 @@ export class GameManager {
 
     // 11. Check Player Death
     if (this.player.stats.hp <= 0) {
-      this.triggerGameOver('Queda Crítica de Tensão na ULA');
+      this.triggerGameOver('A vida da sua nave (ULA) chegou a zero.');
       return;
     }
 
@@ -563,6 +564,7 @@ export class GameManager {
   }
 
   private triggerGameOver(reason: string): void {
+    this.gameOverReason = reason;
     audioSynth.setMiningSound(false);
     audioSynth.playExplosion();
     this.camera.addTrauma(0.8);

@@ -35,11 +35,11 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({ onStartGame }) => {
         </div>
         <div className="flex items-center gap-4">
           <span className="tabular-nums">
-            RECORD THROUGHPUT: <strong className="text-amber-300">{savedData.highScore} IPC</strong>
+            RECORDE DE PONTOS: <strong className="text-amber-300">{savedData.highScore} pts</strong>
           </span>
           <span className="text-emerald-700">·</span>
           <span className="tabular-nums">
-            BENCHMARK MÁX: <strong className="text-emerald-300">CICLO {savedData.highestWave}</strong>
+            ONDA MÁXIMA: <strong className="text-emerald-300">ONDA {savedData.highestWave}</strong>
           </span>
         </div>
       </div>

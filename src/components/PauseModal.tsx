@@ -41,10 +41,10 @@ export const PauseModal: React.FC<PauseModalProps> = ({
       <div className="w-full max-w-md bg-[#051f14] border border-amber-500/40 rounded-lg shadow-2xl p-6 flex flex-col gap-6">
         <div className="text-center">
           <div className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-1">
-            CLOCK SUSPENSO · INSTRUÇÃO HLT
+            PARTIDA EM ESPERA (Clock Suspenso)
           </div>
           <h2 className="text-2xl font-mono font-bold text-emerald-50 tracking-wider">
-            INTERRUPÇÃO DE SISTEMA
+            JOGO PAUSADO
           </h2>
         </div>
 
@@ -55,7 +55,7 @@ export const PauseModal: React.FC<PauseModalProps> = ({
             className="flex items-center justify-center gap-2.5 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold font-mono text-xs rounded transition-all shadow-[0_0_12px_rgba(251,191,36,0.4)] cursor-pointer"
           >
             <Play className="w-4 h-4 fill-current" />
-            RETOMAR CICLO DE CLOCK [ESC]
+            CONTINUAR PARTIDA [ESC]
           </button>
 
           <button
@@ -63,7 +63,7 @@ export const PauseModal: React.FC<PauseModalProps> = ({
             className="flex items-center justify-center gap-2.5 py-2.5 bg-emerald-900/60 hover:bg-emerald-800/80 text-emerald-100 font-mono text-xs rounded border border-emerald-800 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
-            REINICIAR BENCHMARK (RESET)
+            REINICIAR PARTIDA
           </button>
 
           <button
@@ -75,7 +75,7 @@ export const PauseModal: React.FC<PauseModalProps> = ({
             ) : (
               <Volume2 className="w-4 h-4 text-amber-400" />
             )}
-            {isMuted ? 'ATIVAR SINTETIZADOR DE ÁUDIO (M)' : 'SILENCIAR ÁUDIO (M)'}
+            {isMuted ? 'ATIVAR ÁUDIO (M)' : 'SILENCIAR ÁUDIO (M)'}
           </button>
 
           <button
@@ -83,31 +83,31 @@ export const PauseModal: React.FC<PauseModalProps> = ({
             className="flex items-center justify-center gap-2.5 py-2.5 bg-[#03120b] hover:bg-emerald-950 text-emerald-300/80 hover:text-emerald-100 font-mono text-xs rounded border border-emerald-900 transition-colors cursor-pointer"
           >
             <Home className="w-4 h-4" />
-            RETORNAR AO BOOTLOADER (TÍTULO)
+            VOLTAR AO MENU INICIAL
           </button>
         </div>
 
         {/* Controls Quick Reference */}
         <div className="bg-[#03120b]/90 p-3.5 rounded border border-emerald-900 text-[11px] font-mono text-emerald-300/75 space-y-1">
-          <div className="text-amber-300 font-semibold mb-1">CONJUNTO DE INSTRUÇÕES (ISA):</div>
+          <div className="text-amber-300 font-semibold mb-1">RESUMO DOS CONTROLES:</div>
           <div className="flex justify-between">
-            <span>Tráfego nas Trilhas PCB</span>
+            <span>Movimentação (Trilhas PCB)</span>
             <span className="text-emerald-100">W, A, S, D</span>
           </div>
           <div className="flex justify-between">
-            <span>Ciclo de Busca (Data Fetch)</span>
+            <span>Coletar Recursos (Ciclo de Busca)</span>
             <span className="text-emerald-100">Segurar Espaço / LMB</span>
           </div>
           <div className="flex justify-between">
-            <span>Disparo Lógico da ULA</span>
+            <span>Atirar (Disparo da ULA)</span>
             <span className="text-emerald-100">Clique LMB / Segurar F</span>
           </div>
           <div className="flex justify-between">
-            <span>Salto Incondicional (JMP)</span>
+            <span>Esquiva Rápida (Salto JMP)</span>
             <span className="text-emerald-100">Shift / RMB</span>
           </div>
           <div className="flex justify-between">
-            <span>Engenharia da UC (Upgrades)</span>
+            <span>Melhorias da Base (Upgrades)</span>
             <span className="text-emerald-100">Tecla E</span>
           </div>
         </div>
