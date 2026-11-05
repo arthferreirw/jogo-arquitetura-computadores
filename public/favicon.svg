@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="pcbBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#062c1e" />
+      <stop offset="100%" stop-color="#03120b" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a" />
+      <stop offset="50%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+
+  <!-- PCB Substrate Background -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#pcbBg)" stroke="#10b981" stroke-width="2" />
+
+  <!-- Subtle PCB Corner Vias -->
+  <circle cx="10" cy="10" r="2" fill="#fbbf24" />
+  <circle cx="54" cy="10" r="2" fill="#fbbf24" />
+  <circle cx="10" cy="54" r="2" fill="#fbbf24" />
+  <circle cx="54" cy="54" r="2" fill="#fbbf24" />
+
+  <!-- QFP Gold Processor Pins (Top, Bottom, Left, Right) -->
+  <g fill="url(#goldGrad)">
+    <!-- Top pins -->
+    <rect x="21" y="7" width="3.5" height="7" rx="1" />
+    <rect x="30.25" y="7" width="3.5" height="7" rx="1" />
+    <rect x="39.5" y="7" width="3.5" height="7" rx="1" />
+    <!-- Bottom pins -->
+    <rect x="21" y="50" width="3.5" height="7" rx="1" />
+    <rect x="30.25" y="50" width="3.5" height="7" rx="1" />
+    <rect x="39.5" y="50" width="3.5" height="7" rx="1" />
+    <!-- Left pins -->
+    <rect x="7" y="21" width="7" height="3.5" rx="1" />
+    <rect x="7" y="30.25" width="7" height="3.5" rx="1" />
+    <rect x="7" y="39.5" width="7" height="3.5" rx="1" />
+    <!-- Right pins -->
+    <rect x="50" y="21" width="7" height="3.5" rx="1" />
+    <rect x="50" y="30.25" width="7" height="3.5" rx="1" />
+    <rect x="50" y="39.5" width="7" height="3.5" rx="1" />
+  </g>
+
+  <!-- Central CPU Die Package -->
+  <rect x="14" y="14" width="36" height="36" rx="5" fill="#041b11" stroke="url(#goldGrad)" stroke-width="2.5" />
+
+  <!-- Classic V-Shaped ULA (ALU) Symbol Inside the Chip -->
+  <polygon
+    points="22,20 44,27 44,37 22,44 22,35.5 30,32 22,28.5"
+    fill="#10b981"
+    stroke="url(#goldGrad)"
+    stroke-width="1.8"
+    stroke-linejoin="round"
+  />
+
+  <!-- Core Clock Pulse Dot -->
+  <circle cx="36" cy="32" r="2.6" fill="#fef3c7" />
+</svg>
